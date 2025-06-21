@@ -1,6 +1,6 @@
 /*
   FILE          : math_library.h
-  PROJECT       : SENG1005 – Assignment 2 – Errors and Testing
+  PROJECT       : SENG1070 – Assignment 2 – Errors and Testing
   PROGRAMMER    : Shefilkhan Pathan
   FIRST VERSION : 2025-06-16
   DESCRIPTION   : This header file contains the function declarations for basic

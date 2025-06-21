@@ -1,6 +1,6 @@
 /*
   FILE          : main.c
-  PROJECT       : SENG1005 – Assignment 2 – Errors and Testing
+  PROJECT       : SENG1070 – Assignment 2 – Errors and Testing
   PROGRAMMER    : Shefilkhan Pathan
   FIRST VERSION : 2025-06-15
   DESCRIPTION   : This file contains the main menu interface that allows the user to select and run different math operations
