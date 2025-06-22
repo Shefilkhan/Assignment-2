@@ -1,6 +1,6 @@
 /*
   FILE          : test_harness.h
-  PROJECT       : SENG1005 – C Programming
+  PROJECT       : SENG1070 – C Programming
   PROGRAMMER    : shefilkhan Pathan
   FIRST VERSION : 2025-06-21
   DESCRIPTION   : This header file provides function declarations for the test harness system.
