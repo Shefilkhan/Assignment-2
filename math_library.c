@@ -24,13 +24,12 @@ int multiply(int a, int b)
 	return a * b;
 }
 
-int divide(int a, int b, int* error)
+int divide(int a, int b)
 {
 	if (b == 0) {
-		*error = 1;
+		
 		return 0;
 	}
 
-	error = 0;
 	return a / b;
 }

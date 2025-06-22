@@ -12,45 +12,45 @@
     DATE        : 2024-06-01
     AVAILABILITY: https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/scanf-s-scanf-s-l-wscanf-s-wscanf-s-l
 */
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include"logger.h"
-#include"test_harness.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "logger.h"
+#include "test_harness.h"
 
-#define MAX_NAME_LEN 65
+#define MAX_NAME_LEN 50
 
 /*
   FUNCTION      : viewLogFile
   DESCRIPTION   : Opens and displays the contents of the specified log file.
   PARAMETERS    : const char* filename - Name of the file to open and read
   RETURNS       : void
- 
+
   CITATION:
     TITLE       : Read a file character by character in C
     AUTHOR      : C Library Reference + TutorialsPoint
     DATE        : 2024-06-01
-    AVAILABILITY: https://www.geeksforgeeks.org/c-program-read-contents-file/ 
+    AVAILABILITY: https://www.geeksforgeeks.org/c-program-read-contents-file/
  */
 void viewLogFile(const char* filename)
 {
-	FILE* fp = fopen(filename, "r");
+    FILE* fp = fopen(filename, "r");
 
-	if (!fp)
-	{
-		printf("Could not open log file: %s\n", filename);
-		return;
-	}
+    if (!fp)
+    {
+        printf("Could not open log file: %s\n", filename);
+        return;
+    }
 
-	printf("\n--- %s ---\n", filename);
+    printf("\n--- %s ---\n", filename);
 
-	char c;
-	while ((c = fgetc(fp)) != EOF)
-	{
-		putchar(c);
-	}
+    char c;
+    while ((c = fgetc(fp)) != EOF)
+    {
+        putchar(c);
+    }
 
-	fclose(fp);
+    fclose(fp);
 }
 
 /*
@@ -61,77 +61,79 @@ void viewLogFile(const char* filename)
  */
 int main(void)
 {
-	int Choice;
-	int testIndex;
+    int choice;
+    int testIndex;
 
-	// Initialize the main log to track program startup
-	initLogger("program.log");
-	logMessage("INFO", "Program started");
-	closeLogger();
+    // Initialize the main log to track program startup
+    initLogger("program.log");
+    logMessage("INFO", "Program started");
+    closeLogger();
 
-	//initialize test specific log for capturing test results
-	initLogger("test.log");
+    // Initialize test-specific log for capturing test results
+    initLogger("test.log");
 
-	while (1)
-	{
-		// Print main menu directly inside main
-		printf("\n==== MAIN MENU ====\n");
-		printf("1. Run all tests\n");
-		printf("2. Run test by number\n");
-		printf("3. View logs\n");
-		printf("4. Exit\n");
-		printf("Please Enter you choice:");
+    while (1)
+    {
+        // Print main menu directly inside main
+        printf("\n==== MAIN MENU ====\n");
+        printf("1. Run all tests\n");
+        printf("2. Run test by number\n");
+        printf("3. View logs\n");
+        printf("4. Exit\n");
+        printf("Choose: ");
 
-		if (scanf_s("%d", &Choice) != 1); {
-			printf("Invalvalid input. Try again.\n");
-			while (getchar() != '\n'); // this will clear input buffer
-			continue;
-		}
+        // Validate user input using scanf_s and clear buffer if invalid
+        if (scanf_s("%d", &choice) != 1)
+        {
+            printf("Invalid input. Try again.\n");
+            while (getchar() != '\n'); // clear input buffer
+            continue;
+        }
 
-		switch (Choice) {
-		case 1:
-			logMessage("INFO", "Running all tests");
-			runAllTests();
-			break;
+        switch (choice)
+        {
+        case 1:
+            logMessage("INFO", "Running all tests");
+            runAllTests();
+            break;
 
-		case 2:
-		{
-			int total = getTotalTests();
-			printf("Select a test to run:\n");
+        case 2:
+        {
+            int total = getTotalTests();
+            printf("Select a test to run:\n");
 
-			for (int i = 0; i < total; ++i)
-			{
-				printf("  %d. %s\n", i + 1, getTestName(i));
-			}
+            for (int i = 0; i < total; ++i)
+            {
+                printf("  %d. %s\n", i + 1, getTestName(i));
+            }
 
-			printf("Enter test number: ");
-			if (scanf_s("%d", &testIndex) != 1 || testIndex < 1 || testIndex > total)
-			{
-				printf("Invalid selection.\n");
-				while (getchar() != '\n');
-				break;
-			}
+            printf("Enter test number: ");
+            if (scanf_s("%d", &testIndex) != 1 || testIndex < 1 || testIndex > total)
+            {
+                printf("Invalid selection.\n");
+                while (getchar() != '\n');
+                break;
+            }
 
-			logMessage("INFO", "Running test %d: %s", testIndex, getTestName(testIndex - 1));
-			runTestByIndex(testIndex - 1);
-			break;
-		}
+            logMessage("INFO", "Running test %d: %s", testIndex, getTestName(testIndex - 1));
+            runTestByIndex(testIndex - 1);
+            break;
+        }
 
-		case 3:
-			viewLogFile("program.log");
-			viewLogFile("test.log");
-			break;
+        case 3:
+            viewLogFile("program.log");
+            viewLogFile("test.log");
+            break;
 
-		case 4:
-			logMessage("INFO", "Program exited");
-			closeLogger();
-			return 0;
-			
-		default:
-			printf("Invalid Choice\n");
+        case 4:
+            logMessage("INFO", "Program exited");
+            closeLogger();
+            return 0;
 
-		}
-	} while (Choice != 4);
+        default:
+            printf("Invalid choice.\n");
+        }
+    }
 
-	return 0;
+    return 0;
 }
